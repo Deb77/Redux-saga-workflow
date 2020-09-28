@@ -29,7 +29,6 @@ export const loadUpdateUsername = () => ({
   type: CALL_UPDATE_USERNAME,
 });
 
-export const updateUsername = (username) => ({
+export const updateUsername = () => ({
   type: UPDATE_USERNAME,
-  username,
 });
