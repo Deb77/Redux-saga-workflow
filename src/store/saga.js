@@ -1,6 +1,10 @@
-import { call, put, takeEvery, takeLatest } from "redux-saga/effects";
-import { CALL_CHANGE_USERNAME, CALL_GET_DATA } from "./constants";
-import { changeUsername, updateUsername, getData } from "./actions";
+import { call, put, takeEvery, takeLatest, select } from "redux-saga/effects";
+import {
+  CALL_CHANGE_USERNAME,
+  CALL_GET_DATA,
+  CALL_UPDATE_USERNAME,
+} from "./constants";
+import { changeUsername, getData } from "./actions";
 import axios from "axios";
 
 export function* setUsername(action) {
@@ -19,11 +23,23 @@ export function* setData() {
 }
 
 export function* changeData(action) {
-  console.log(action.username);
   yield put(changeData(action.username));
+}
+
+export function updateUser(username) {
+  axios
+    .put("http://localhost:3000/user/123", { name: username })
+    .then(() => alert("Username updated"));
+}
+
+export function* updateData() {
+  const getItems = (state) => state.username;
+  const username = yield select(getItems);
+  yield call(updateUser, username);
 }
 
 export default function* userName() {
   yield takeLatest(CALL_GET_DATA, setData);
   yield takeEvery(CALL_CHANGE_USERNAME, setUsername);
+  yield takeLatest(CALL_UPDATE_USERNAME, updateData);
 }

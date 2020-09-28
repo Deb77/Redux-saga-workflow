@@ -25,11 +25,11 @@ export const changeUsername = (username) => ({
   username,
 });
 
-export const loadUsername = () => ({
+export const loadUpdateUsername = () => ({
   type: CALL_UPDATE_USERNAME,
 });
 
-export const loadUpdateUsername = (username) => ({
+export const updateUsername = (username) => ({
   type: UPDATE_USERNAME,
   username,
 });
